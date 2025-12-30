@@ -340,13 +340,54 @@ nav {
   box-shadow: var(--shadow-hover);
 }
 
-/* About Specifics */
-.intro-card {
-  max-width: 800px;
-  margin: 0 auto 50px;
-  text-align: center;
-  font-size: 1.1rem;
-  color: #444;
+/* --- ABOUT SECTION SPECIFICS (REVISI) --- */
+
+.intro-card { 
+    max-width: 900px; 
+    margin: 0 auto 50px; 
+    
+    /* Aktifkan Flexbox biar Teks & Foto Jejer */
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    text-align: left; /* Teks jadi rata kiri biar rapi baca-nya */
+}
+
+.intro-text {
+    flex: 1.5; /* Porsi teks lebih lebar dikit */
+    font-size: 1.1rem;
+    color: #444;
+}
+
+.intro-image {
+    flex: 1; /* Porsi gambar */
+    height: 300px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.intro-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.intro-image:hover img {
+    transform: scale(1.05); /* Efek zoom dikit pas di-hover */
+}
+
+/* --- RESPONSIVE MOBILE UNTUK ABOUT (WAJIB DITAMBAH) --- */
+@media (max-width: 768px) {
+    .intro-card {
+        flex-direction: column-reverse; /* Foto di atas, teks di bawah kalau di HP */
+        text-align: center;
+    }
+    .intro-image {
+        width: 100%;
+        height: 250px;
+    }
 }
 .icon-box {
   width: 40px;
