@@ -1,7 +1,7 @@
 /* --- VARIABLES --- */
 :root {
   --bg-white: #ffffff;
-  --bg-soft: #f9fafb; /* Light Gray ala Lovable */
+  --bg-soft: #f9fafb;
   --text-main: #1a1a1a;
   --text-muted: #666666;
   --accent: #ea580c; /* Orange Accent */
@@ -181,7 +181,7 @@ nav {
 }
 .mobile-menu {
   display: none;
-} /* Hidden by default */
+}
 
 /* --- HERO SECTION --- */
 .hero-section {
@@ -212,38 +212,50 @@ nav {
   gap: 15px;
 }
 
-/* Hero Card (Rotated effect like Lovable) */
-.hero-image-wrapper {
-  position: relative;
-  display: flex;
-  justify-content: center;
+/* --- HERO CARD (FIXED: RAPET & POSISI PAS) --- */
+
+.hero-image-wrapper { 
+    position: relative; 
+    /* KUNCI PERBAIKAN: */
+    width: fit-content;  /* Bungkusannya mengecil pas seukuran kartu */
+    margin: 0 auto;      /* Biar tetap di tengah layar */
+    z-index: 1;          /* Memastikan wrapper ada di layer aman */
 }
-.hero-card {
-  background: white;
-  padding: 20px;
-  border-radius: 20px;
-  width: 320px;
-  text-align: center;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-hover);
-  position: relative;
-  z-index: 2;
-  transform: rotate(-3deg);
-  transition: 0.5s;
+
+.hero-card { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 20px; 
+    width: 320px; 
+    text-align: center;
+    border: 1px solid var(--border); 
+    box-shadow: var(--shadow); 
+    position: relative; 
+    z-index: 2;          /* Kartu foto ada di depan */
+    transition: 0.3s;
 }
-.hero-card:hover {
-  transform: rotate(0deg);
+
+.hero-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: var(--shadow-hover); 
 }
+
 .hero-card-bg {
-  position: absolute;
-  width: 320px;
-  height: 380px;
-  border: 2px solid var(--accent);
-  border-radius: 20px;
-  transform: rotate(3deg);
-  z-index: 1;
-  top: 10px;
+    position: absolute; 
+    width: 100%;         /* Mengikuti lebar kartu utama */
+    height: 100%;        /* Mengikuti tinggi kartu utama */
+    border: 2px solid var(--accent); 
+    border-radius: 20px; 
+    z-index: -1;         /* Taruh DI BELAKANG kartu */
+    
+    /* POSISI: Geser ke kiri atas (Negatif) supaya seperti contoh Lovable */
+    top: -15px; 
+    left: -15px;
+    
+    /* Pastikan background transparan agar tidak menutupi apa-apa */
+    background: transparent;
 }
+
 .profile-placeholder {
   width: 100%;
   height: 280px;
@@ -285,12 +297,24 @@ nav {
   animation: bounce 2s infinite;
 }
 
-/* --- CARDS & GRIDS --- */
+/* --- CARDS & GRIDS (SUDAH DIPERBAIKI) --- */
+
+/* 1. Grid untuk CV (About) */
+.cv-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  justify-content: center;
+}
+
+/* 2. Grid untuk Portfolio (INI YANG HILANG KEMARIN) */
 .grid-3 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 24px;
 }
+
+/* Grid Lainnya */
 .grid-2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -302,6 +326,7 @@ nav {
   gap: 20px;
 }
 
+/* Card Styling */
 .card {
   background: white;
   border: 1px solid var(--border);
@@ -315,7 +340,7 @@ nav {
   box-shadow: var(--shadow-hover);
 }
 
-/* About Section Specifics */
+/* About Specifics */
 .intro-card {
   max-width: 800px;
   margin: 0 auto 50px;
@@ -337,7 +362,15 @@ nav {
 .card-header {
   display: flex;
   align-items: center;
-  margin-bottom: 15px;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px dashed #eee;
+}
+.card-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--text-main);
 }
 .list-dots li {
   position: relative;
@@ -647,7 +680,6 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  /* Mobile Menu */
   .mobile-menu.active {
     display: flex;
     flex-direction: column;
