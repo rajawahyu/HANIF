@@ -1,61 +1,33 @@
-const navSlide = () => {
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Mobile Menu Toggle
     const burger = document.querySelector('.burger');
-    const nav = document.querySelector('.nav-links');
-    const navLinks = document.querySelectorAll('.nav-links li');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navLinks = document.querySelectorAll('.mobile-menu a');
 
-    if(burger) {
+    if (burger) {
         burger.addEventListener('click', () => {
-            // Toggle Nav (Buka/Tutup Menu)
-            nav.classList.toggle('nav-active');
-
-            // Animate Links (Muncul berurutan)
-            navLinks.forEach((link, index) => {
-                if (link.style.animation) {
-                    link.style.animation = '';
-                } else {
-                    link.style.animation = `navLinkFade 0.5s ease forwards ${index / 7 + 0.3}s`;
-                }
-            });
-
-            // Burger Animation (Berubah jadi X)
-            burger.classList.toggle('toggle');
+            mobileMenu.classList.toggle('active');
         });
     }
-}
 
-// Fungsi Smooth Scrolling & Tutup Menu saat Link diklik
-const smoothScroll = () => {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            // Biar link WA tidak kena preventDefault
-            if(this.getAttribute('href').startsWith('http')) return;
-
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            
-            if(target){
-                target.scrollIntoView({
-                    behavior: 'smooth'
-                });
-                
-                // Tutup menu mobile jika sedang terbuka
-                const nav = document.querySelector('.nav-links');
-                const burger = document.querySelector('.burger');
-                if(nav.classList.contains('nav-active')){
-                    nav.classList.remove('nav-active');
-                    burger.classList.remove('toggle');
-                    
-                    // Reset animasi link
-                    const navLinks = document.querySelectorAll('.nav-links li');
-                    navLinks.forEach((link) => {
-                        link.style.animation = '';
-                    });
-                }
-            }
+    // Close menu when a link is clicked
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('active');
         });
     });
-}
 
-// Jalankan fungsi saat halaman dimuat
-navSlide();
-smoothScroll();
+    // 2. Navbar Background on Scroll (Efek Kaca)
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav.style.boxShadow = "0 4px 6px -1px rgba(0, 0, 0, 0.1)";
+        } else {
+            nav.style.boxShadow = "none";
+        }
+    });
+
+    // 3. Initialize Lucide Icons (Penting untuk menampilkan ikon!)
+    lucide.createIcons();
+});
